@@ -188,7 +188,7 @@ module RocketTag
 
           c = tags_list.each_key.map do |context|
             squeel do
-              tags.name.in(tags_list[context]) & (taggings.context == context.to_s)
+              lower(tags.name).in(tags_list[context]) & (taggings.context == context.to_s)
             end
           end.inject do |s,t|
             s | t
@@ -199,7 +199,7 @@ module RocketTag
         else
           # Any tag can match any context
           q = q.
-            where{tags.name.in(tags_list)}.
+            where{lower(tags.name).in(tags_list)}.
             where(with_tag_context(options.delete(:on)))
         end
 
