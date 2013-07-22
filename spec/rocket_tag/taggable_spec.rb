@@ -20,6 +20,11 @@ describe TaggableModel do
       m.skills.should == []
     end
 
+    it "parses a string ending with a comma" do
+      m = TaggableModel.new :skills => "kitten, whiskers, "
+      m.skills.should == ["kitten", "whiskers"]
+    end
+
     it "parses a string with a comma to an empty array" do
       m = TaggableModel.new :skills => " , "
       m.skills.should == []
